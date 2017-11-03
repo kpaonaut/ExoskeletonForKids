@@ -118,6 +118,9 @@ class StepHipTraj(_object):
     def set_max_hip_flexion(self, value):
         return _trajectory_template.StepHipTraj_set_max_hip_flexion(self, value)
 
+    def set_max_hip_flexion_time(self, value):
+        return _trajectory_template.StepHipTraj_set_max_hip_flexion_time(self, value)
+
     def set_walking_angle(self, value):
         return _trajectory_template.StepHipTraj_set_walking_angle(self, value)
 
@@ -126,6 +129,15 @@ class StepHipTraj(_object):
 
     def set_step_time(self, value):
         return _trajectory_template.StepHipTraj_set_step_time(self, value)
+
+    def set_step_range(self, value):
+        return _trajectory_template.StepHipTraj_set_step_range(self, value)
+
+    def init(self):
+        return _trajectory_template.StepHipTraj_init(self)
+
+    def splineInterpolate(self):
+        return _trajectory_template.StepHipTraj_splineInterpolate(self)
 
     def get_step_time(self):
         return _trajectory_template.StepHipTraj_get_step_time(self)

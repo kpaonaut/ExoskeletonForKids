@@ -2,7 +2,8 @@
 #define TRAJECTORY_TEMPLATE_H_
 
 #include "stdio.h"
-#include <math.h>
+#include <cmath>
+#include "spline.h"
 
 
 class StepHipTraj {
@@ -20,7 +21,7 @@ class StepHipTraj {
 	 *   time unit. Passed by reference
 	 * @return flag, true if the trajectory is over
 	 */
-	bool Increment(float* traj_value );
+	bool Increment(float* traj_value);
 
 	/** Sets the max hip flexion angle
 	 * @param value, the max hip flexion angle
@@ -31,7 +32,10 @@ class StepHipTraj {
 	/** Sets the max hip flexion angle
 	 * @param value, the max hip flexion angle
 	 */
-	void set_walking_angle(float value);
+
+    void set_max_hip_flexion_time(int value);
+
+	void set_walking_angle(float value); // offest for the entire trajectory
 
 	/** Sets the swing start angle
 	 * @param value, the swing start angle
@@ -39,13 +43,14 @@ class StepHipTraj {
 	void set_swing_start(float value);
 
 	/** Sets the step time
-	 * @param value, the step time value in time unit
+	 * @param value, the step time value in time unit, half the time of a cycle
 	 */
 	void set_step_time(int value);
+    void set_step_range(float value); // step length, in meter
 
-	/* You might have other setter
-	 * functions.
-	 */
+    void init();
+
+    void splineInterpolate();
 
 	inline int get_step_time(){
 		return step_time_;
@@ -61,11 +66,13 @@ class StepHipTraj {
 	 * Max hip flexion angle
 	 */
 	float max_hip_flexion_;
+    int max_hip_flexion_time_;
 
 	/**
 	 * Walking angle
 	 */
 	float walking_angle_;
+    float step_range_; // in meter
 
 	/**
 	 * Step time in time units, total time e.g. 7000 ms
@@ -75,7 +82,13 @@ class StepHipTraj {
 	/**
 	 * Current time unit
 	 */
-	int t_;
+	int t_, numPiece, n; // which piece of spline the current point belongs to, starting from 0
+    // n: the number of critical pts
+
+    int x[4];
+    float y[4]; // spline points coordinates
+    float a[4], b[4], c[4], d[4];// spline function parameters y=d(x-xi)^3+c(x-xi)^2+b(x-xi)+a
+    tk::spline s; // spline obj
 };
 
 #endif /* TRAJECTORY_TEMPLATE_H_ */
