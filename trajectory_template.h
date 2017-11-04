@@ -88,7 +88,7 @@ class StepHipTraj {
     int x[4];
     float y[4]; // spline points coordinates
     float a[4], b[4], c[4], d[4];// spline function parameters y=d(x-xi)^3+c(x-xi)^2+b(x-xi)+a
-    tk::spline s; // spline obj
+    tk::spline s[3]; // spline obj
 };
 
 #endif /* TRAJECTORY_TEMPLATE_H_ */
