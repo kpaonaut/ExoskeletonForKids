@@ -3594,6 +3594,36 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_StepHipTraj_set_leg_length(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  StepHipTraj *arg1 = (StepHipTraj *) 0 ;
+  float arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  float val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:StepHipTraj_set_leg_length",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_StepHipTraj, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "StepHipTraj_set_leg_length" "', argument " "1"" of type '" "StepHipTraj *""'"); 
+  }
+  arg1 = reinterpret_cast< StepHipTraj * >(argp1);
+  ecode2 = SWIG_AsVal_float(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "StepHipTraj_set_leg_length" "', argument " "2"" of type '" "float""'");
+  } 
+  arg2 = static_cast< float >(val2);
+  (arg1)->set_leg_length(arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_StepHipTraj_init(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   StepHipTraj *arg1 = (StepHipTraj *) 0 ;
@@ -3697,6 +3727,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"StepHipTraj_set_swing_start", _wrap_StepHipTraj_set_swing_start, METH_VARARGS, NULL},
 	 { (char *)"StepHipTraj_set_step_time", _wrap_StepHipTraj_set_step_time, METH_VARARGS, NULL},
 	 { (char *)"StepHipTraj_set_step_range", _wrap_StepHipTraj_set_step_range, METH_VARARGS, NULL},
+	 { (char *)"StepHipTraj_set_leg_length", _wrap_StepHipTraj_set_leg_length, METH_VARARGS, NULL},
 	 { (char *)"StepHipTraj_init", _wrap_StepHipTraj_init, METH_VARARGS, NULL},
 	 { (char *)"StepHipTraj_splineInterpolate", _wrap_StepHipTraj_splineInterpolate, METH_VARARGS, NULL},
 	 { (char *)"StepHipTraj_get_step_time", _wrap_StepHipTraj_get_step_time, METH_VARARGS, NULL},

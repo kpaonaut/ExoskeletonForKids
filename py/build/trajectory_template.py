@@ -133,6 +133,9 @@ class StepHipTraj(_object):
     def set_step_range(self, value):
         return _trajectory_template.StepHipTraj_set_step_range(self, value)
 
+    def set_leg_length(self, arg2):
+        return _trajectory_template.StepHipTraj_set_leg_length(self, arg2)
+
     def init(self):
         return _trajectory_template.StepHipTraj_init(self)
 

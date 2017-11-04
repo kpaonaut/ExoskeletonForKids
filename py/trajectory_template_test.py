@@ -13,6 +13,7 @@ traj_generator.set_step_time(int(5/sample_time))	# in ms, integer
 traj_generator.set_walking_angle(0)                 # offset, can vary
 traj_generator.set_swing_start(-6.934)
 traj_generator.set_step_range(0.78) # step length in meter. example: 0.78m legLen 1.1m -> theta 41.8
+traj_generator.set_leg_length(1.5)
 
 traj_generator.init(); # set coordinates for interpolation
 
