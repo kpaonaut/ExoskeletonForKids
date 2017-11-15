@@ -37,11 +37,10 @@ class StepHipTraj {
 	int t_, numPiece, n; // which piece of spline the current point belongs to, starting from 0
     // n: the number of critical pts, for hip it's 4
     float leglen;
-    int x[4];
-    float y[4]; // spline points coordinates
-    //float a[4], b[4], c[4], d[4];// spline function parameters y=d(x-xi)^3+c(x-xi)^2+b(x-xi)+a
-    tk::spline s; // spline obj
-    std::vector<double> X, Y; // spline interpolation critical pts sequence
+    float x[4], y[4]; // spline points coordinates
+    float A0, A1, A2, A3, A4, B0, B1, B2, B3, C0, C1, C2, C3; // coefficients for spline
+    //tk::spline s; // spline obj
+    //std::vector<double> X, Y; // spline interpolation critical pts sequence
 };
 
 #endif /* TRAJECTORY_TEMPLATE_H_ */
