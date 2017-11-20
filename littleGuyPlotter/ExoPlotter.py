@@ -1,6 +1,6 @@
 __author__ = 'Raghid Mardini'
 
-import numpy as np
+import numpy as np #numpy
 import pylab as pl
 import matplotlib.collections  as mc
 import matplotlib.pyplot as plt
