@@ -10,11 +10,11 @@ hip_traj_generator = trajectory_template.StepHipTraj()  # new object
 
 hip_traj_generator.reset()
 hip_traj_generator.set_max_hip_flexion(36.202)			# degrees
-hip_traj_generator.set_max_hip_flexion_time(4200)       # in ms
+hip_traj_generator.set_max_hip_flexion_time(3000)       # in ms
 hip_traj_generator.set_step_time(int(5/sample_time))	# in ms, integer. 5000 here.
 hip_traj_generator.set_walking_angle(0)                 # offset, can vary
 hip_traj_generator.set_swing_start(-6.934)
-hip_traj_generator.set_step_range(0.78) # step length in meter. example: 0.78m legLen 1.1m -> theta 41.8
+hip_traj_generator.set_step_range(0.6) # step length in meter. example: 0.78m legLen 1.1m -> theta 41.8
 hip_traj_generator.set_leg_length(1.5)
 
 ### Knee
