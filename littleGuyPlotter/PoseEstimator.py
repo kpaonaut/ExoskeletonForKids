@@ -96,9 +96,10 @@ class PoseEstimator:
 
         x_swing_toe = x_swing_heel + self.pilot.l_foot * np.sin(np.pi / 2 - angles[4])
         y_swing_toe = y_swing_heel - self.pilot.l_foot * np.cos(np.pi / 2 + angles[4])
-        if y_swing_toe <= 0:
-            y_swing_toe = 0.0
-            x_swing_toe = np.sqrt(self.pilot.l_foot ** 2 + y_swing_heel ** 2) + x_swing_heel
+
+        # if y_swing_toe <= 0:
+        #     y_swing_toe = 0.0
+        #     x_swing_toe = np.sqrt(self.pilot.l_foot ** 2 + y_swing_heel ** 2) + x_swing_heel
 
         joint_positions[0] = [x_stance_toe, y_stance_toe]
         joint_positions[1] = [x_stance_heel, y_stance_heel]
@@ -108,8 +109,12 @@ class PoseEstimator:
         joint_positions[5] = [x_swing_knee, y_swing_knee]
         joint_positions[6] = [x_swing_heel, y_swing_heel]
         joint_positions[7] = [x_swing_toe, y_swing_toe]
-        return joint_positions
+        # print joint_positions[7] - joint_positions[6]
+        # print joint_positions[1] - joint_positions[0]
 
+        offset = joint_positions[3] # set origin at hip instead
+        joint_positions -= offset
+        return joint_positions
 
 def main():
     exo_angles = np.array([10.0000, -30.8004, 0, 44.1681, 40.1681])

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-__author__ = 'Raghid Mardini, Rui Wang'
+__author__ = 'Rui Wang, Raghid Mardini'
 
 import numpy as np
 import pylab as pl
@@ -25,12 +25,12 @@ class ExoPlotter:
         array = np.asarray(array)
         if np.shape(array) != (8,2):
             raise Exception("invalid argument to ExoPlotter.Update()")
-        lines = [[ array[0,:],array[1,:] ] , 
-                [ array[1,:],array[2,:] ], 
+        lines = [[ array[0,:],array[1,:] ], 
+                [ array[1,:],array[2,:] ] , 
                 [ array[2,:],array[3,:] ] , 
                 [ array[3,:],array[4,:] ] , 
                 [ array[3,:],array[5,:] ] , 
-                [ array[5,:],array[6,:] ], 
+                [ array[5,:],array[6,:] ] , 
                 [ array[6,:],array[7,:] ]]
 
         self.ax.clear()
@@ -43,13 +43,12 @@ class ExoPlotter:
         self.ax.add_collection(lc)
         lc = mc.LineCollection(lines[4:7],color=color[1],linewidths=2)
         self.ax.add_collection(lc)
-        # lc = mc.LineCollection(lines[3], linewidths=2)
-        # self.ax.add_collection(lc)
-        # lc = mc.LineCollection(lines[4], linewidths=2)
-        # self.ax.add_collection(lc)
-        # self.ax.autoscale()
+
         self.ax.set_aspect('equal')
         self.ax.margins(0.1)
+        axes = plt.gca()
+        axes.set_xlim([-1, 1])
+        axes.set_ylim([-1.5, 1.5])
         # plt.show()
         # plt.draw()
         fig.canvas.draw() # FIXME this line is making the plotting VERY slow!
@@ -71,7 +70,8 @@ def main():
     generator = traj.TrajectoryGenerator() # np.array([walking angle, hip1, knee1, hip2, knee2])
 
     fig = plt.figure()
-    exo_plotter_axis = fig.add_axes([0.75,0.1,0.2,0.3])
+    #exo_plotter_axis = fig.add_axes([0.75,0.1,0.2,0.3])
+    exo_plotter_axis = fig.add_axes([0.1,0.1,0.8,0.8]) # specify plot location
     plotter = ExoPlotter(exo_plotter_axis)
     colors = ("r", "b")
     plt.ion() # allow interactive plot!
@@ -85,7 +85,7 @@ def main():
         if i%10 == 0:
             print angles
 
-        plotter.Update(Points, colors, fig) # too slow???
+        plotter.Update(Points, colors, fig) # too slow??? The step time is shrinked to allow smooth plot!
         # time.sleep(0.001)
 
 if __name__ == "__main__":
