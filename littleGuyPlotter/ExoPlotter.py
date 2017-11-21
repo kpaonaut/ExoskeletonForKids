@@ -78,14 +78,13 @@ def main():
     import time
     plt.show()
 
-    for i in range(0, 1000):
+    for i in range(0, 10000):
         angles = generator.generateTrajectory() # generate trajectory
         Points = estimator.CalculatePose(angles) # angles is obtained from increment()!
 
-        if i%10 == 0:
+        if i%50 == 0:
             print angles
-
-        plotter.Update(Points, colors, fig) # too slow??? The step time is shrinked to allow smooth plot!
+            plotter.Update(Points, colors, fig) # too slow??? The step time is shrinked to allow smooth plot!
         # time.sleep(0.001)
 
 if __name__ == "__main__":

@@ -91,9 +91,6 @@ class PoseEstimator:
         x_swing_heel = x_swing_knee + self.pilot.l_shank * np.sin(angles[4])
         y_swing_heel = y_swing_knee - self.pilot.l_shank * np.cos(angles[4])
 
-        # x_swing_toe = x_swing_heel + self.pilot.l_foot
-        # y_swing_toe = y_swing_heel
-
         x_swing_toe = x_swing_heel + self.pilot.l_foot * np.sin(np.pi / 2 - angles[4])
         y_swing_toe = y_swing_heel - self.pilot.l_foot * np.cos(np.pi / 2 + angles[4])
 
