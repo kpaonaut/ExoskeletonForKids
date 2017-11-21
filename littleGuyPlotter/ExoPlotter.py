@@ -1,4 +1,5 @@
-__author__ = 'Raghid Mardini'
+# -*- coding: utf-8 -*-
+__author__ = 'Raghid Mardini, Rui Wang'
 
 import numpy as np
 import pylab as pl
@@ -20,7 +21,7 @@ class ExoPlotter:
         plt.setp( self.ax.get_yticklabels(), visible=False)
 
 
-    def Update(self,array,color):
+    def Update(self,array,color, fig):
         array = np.asarray(array)
         if np.shape(array) != (8,2):
             raise Exception("invalid argument to ExoPlotter.Update()")
@@ -33,9 +34,9 @@ class ExoPlotter:
                 [ array[6,:],array[7,:] ]]
 
         self.ax.clear()
-        self.__PlotLines(lines,color)
+        self.__PlotLines(lines,color, fig)
         
-    def __PlotLines(self,lines,color):
+    def __PlotLines(self,lines,color, fig):
         lc = mc.LineCollection(lines[0:3],color=color[0], linewidths=2)
         self.ax.add_collection(lc)
         lc = mc.LineCollection(lines[3:4], linewidths=2)
@@ -51,15 +52,9 @@ class ExoPlotter:
         self.ax.margins(0.1)
         # plt.show()
         # plt.draw()
-
-
+        fig.canvas.draw() # FIXME this line is making the plotting VERY slow!
 
 def main():
-
-    fig = plt.figure()
-    exo_plotter_axis = fig.add_axes([0.75,0.1,0.2,0.3])
-    plotter = ExoPlotter(exo_plotter_axis)
-
     # Points = np.array([[ 0.0    , 0.0   ],
     #                     [-0.172 , 0.149],
     #                     [ 0.154 , 0.526],
@@ -68,13 +63,30 @@ def main():
     #                     [ 0.675 , 0.496],
     #                     [ 0.622 , 0.   ],
     #                     [ 0.849 ,-0.024]])
-    import PoseEstimator as est
-    estimator = est.PoseEstimator()
-    estimator.CalculatePose(angles) # angles is obtained from increment()!
+    import PoseEstimator as pose
+    from os import sys, path
+    sys.path.append(path.abspath(path.join(path.dirname(__file__), '../py')))
+    import trajectory_generator as traj
+    estimator = pose.PoseEstimator()
+    generator = traj.TrajectoryGenerator() # np.array([walking angle, hip1, knee1, hip2, knee2])
 
-    colors = ("r","b")
-    plotter.Update(Points,colors)
+    fig = plt.figure()
+    exo_plotter_axis = fig.add_axes([0.75,0.1,0.2,0.3])
+    plotter = ExoPlotter(exo_plotter_axis)
+    colors = ("r", "b")
+    plt.ion() # allow interactive plot!
+    import time
     plt.show()
+
+    for i in range(0, 1000):
+        angles = generator.generateTrajectory() # generate trajectory
+        Points = estimator.CalculatePose(angles) # angles is obtained from increment()!
+
+        if i%10 == 0:
+            print angles
+
+        plotter.Update(Points, colors, fig) # too slow???
+        # time.sleep(0.001)
 
 if __name__ == "__main__":
     main()
