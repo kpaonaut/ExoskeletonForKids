@@ -20,6 +20,7 @@ bool StepHipTraj::Increment(float* traj_value ) {
     *traj_value = s(t_) + walking_angle_;
 
 	if (t_ >= 2*step_time_) {
+        t_ -= 2*step_time_;
 		return true;
 	}else{
 		t_ ++; // Incrementing current time by one time unit
@@ -62,7 +63,7 @@ void StepHipTraj::set_max_hip_flexion(float value) {
     max_hip_flexion_ = value;
 }
 
-void StepHipTraj::set_max_hip_flexion_time(int value) {
+void StepHipTraj::set_max_hip_flexion_time(float value) {
     max_hip_flexion_time_ = value; // in ms
 }
 
@@ -74,7 +75,7 @@ void StepHipTraj::set_swing_start(float value) {
 	swing_start_ = value;
 }
 
-void StepHipTraj::set_step_time(int value) {
+void StepHipTraj::set_step_time(float value) {
 	step_time_ = value; // in ms
 }
 

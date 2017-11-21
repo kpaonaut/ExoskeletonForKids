@@ -13,9 +13,9 @@ class StepKneeTraj {
     }
     void reset();
     bool Increment(float* traj_value);
-    void set_max_hip_flexion_time(int value);
+    void set_max_hip_flexion_time(float value);
     void set_walking_angle(float value); // offest for the entire trajectory
-    void set_step_time(int value);
+    void set_step_time(float value);
     void set_max_knee_flexion(float value);
     void set_second_knee_flexion(float value);
     void set_min_knee_flexion(float value);

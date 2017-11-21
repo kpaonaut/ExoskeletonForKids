@@ -3240,105 +3240,6 @@ SWIG_AsVal_float (PyObject * obj, float *val)
 }
 
 
-#include <limits.h>
-#if !defined(SWIG_NO_LLONG_MAX)
-# if !defined(LLONG_MAX) && defined(__GNUC__) && defined (__LONG_LONG_MAX__)
-#   define LLONG_MAX __LONG_LONG_MAX__
-#   define LLONG_MIN (-LLONG_MAX - 1LL)
-#   define ULLONG_MAX (LLONG_MAX * 2ULL + 1ULL)
-# endif
-#endif
-
-
-SWIGINTERNINLINE int
-SWIG_CanCastAsInteger(double *d, double min, double max) {
-  double x = *d;
-  if ((min <= x && x <= max)) {
-   double fx = floor(x);
-   double cx = ceil(x);
-   double rd =  ((x - fx) < 0.5) ? fx : cx; /* simple rint */
-   if ((errno == EDOM) || (errno == ERANGE)) {
-     errno = 0;
-   } else {
-     double summ, reps, diff;
-     if (rd < x) {
-       diff = x - rd;
-     } else if (rd > x) {
-       diff = rd - x;
-     } else {
-       return 1;
-     }
-     summ = rd + x;
-     reps = diff/summ;
-     if (reps < 8*DBL_EPSILON) {
-       *d = rd;
-       return 1;
-     }
-   }
-  }
-  return 0;
-}
-
-
-SWIGINTERN int
-SWIG_AsVal_long (PyObject *obj, long* val)
-{
-#if PY_VERSION_HEX < 0x03000000
-  if (PyInt_Check(obj)) {
-    if (val) *val = PyInt_AsLong(obj);
-    return SWIG_OK;
-  } else
-#endif
-  if (PyLong_Check(obj)) {
-    long v = PyLong_AsLong(obj);
-    if (!PyErr_Occurred()) {
-      if (val) *val = v;
-      return SWIG_OK;
-    } else {
-      PyErr_Clear();
-      return SWIG_OverflowError;
-    }
-  }
-#ifdef SWIG_PYTHON_CAST_MODE
-  {
-    int dispatch = 0;
-    long v = PyInt_AsLong(obj);
-    if (!PyErr_Occurred()) {
-      if (val) *val = v;
-      return SWIG_AddCast(SWIG_OK);
-    } else {
-      PyErr_Clear();
-    }
-    if (!dispatch) {
-      double d;
-      int res = SWIG_AddCast(SWIG_AsVal_double (obj,&d));
-      if (SWIG_IsOK(res) && SWIG_CanCastAsInteger(&d, LONG_MIN, LONG_MAX)) {
-	if (val) *val = (long)(d);
-	return res;
-      }
-    }
-  }
-#endif
-  return SWIG_TypeError;
-}
-
-
-SWIGINTERN int
-SWIG_AsVal_int (PyObject * obj, int *val)
-{
-  long v;
-  int res = SWIG_AsVal_long (obj, &v);
-  if (SWIG_IsOK(res)) {
-    if ((v < INT_MIN || v > INT_MAX)) {
-      return SWIG_OverflowError;
-    } else {
-      if (val) *val = static_cast< int >(v);
-    }
-  }  
-  return res;
-}
-
-
 SWIGINTERNINLINE PyObject*
   SWIG_From_int  (int value)
 {
@@ -3447,10 +3348,10 @@ fail:
 SWIGINTERN PyObject *_wrap_StepHipTraj_set_max_hip_flexion_time(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   StepHipTraj *arg1 = (StepHipTraj *) 0 ;
-  int arg2 ;
+  float arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  int val2 ;
+  float val2 ;
   int ecode2 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
@@ -3461,11 +3362,11 @@ SWIGINTERN PyObject *_wrap_StepHipTraj_set_max_hip_flexion_time(PyObject *SWIGUN
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "StepHipTraj_set_max_hip_flexion_time" "', argument " "1"" of type '" "StepHipTraj *""'"); 
   }
   arg1 = reinterpret_cast< StepHipTraj * >(argp1);
-  ecode2 = SWIG_AsVal_int(obj1, &val2);
+  ecode2 = SWIG_AsVal_float(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "StepHipTraj_set_max_hip_flexion_time" "', argument " "2"" of type '" "int""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "StepHipTraj_set_max_hip_flexion_time" "', argument " "2"" of type '" "float""'");
   } 
-  arg2 = static_cast< int >(val2);
+  arg2 = static_cast< float >(val2);
   (arg1)->set_max_hip_flexion_time(arg2);
   resultobj = SWIG_Py_Void();
   return resultobj;
@@ -3537,10 +3438,10 @@ fail:
 SWIGINTERN PyObject *_wrap_StepHipTraj_set_step_time(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   StepHipTraj *arg1 = (StepHipTraj *) 0 ;
-  int arg2 ;
+  float arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  int val2 ;
+  float val2 ;
   int ecode2 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
@@ -3551,11 +3452,11 @@ SWIGINTERN PyObject *_wrap_StepHipTraj_set_step_time(PyObject *SWIGUNUSEDPARM(se
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "StepHipTraj_set_step_time" "', argument " "1"" of type '" "StepHipTraj *""'"); 
   }
   arg1 = reinterpret_cast< StepHipTraj * >(argp1);
-  ecode2 = SWIG_AsVal_int(obj1, &val2);
+  ecode2 = SWIG_AsVal_float(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "StepHipTraj_set_step_time" "', argument " "2"" of type '" "int""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "StepHipTraj_set_step_time" "', argument " "2"" of type '" "float""'");
   } 
-  arg2 = static_cast< int >(val2);
+  arg2 = static_cast< float >(val2);
   (arg1)->set_step_time(arg2);
   resultobj = SWIG_Py_Void();
   return resultobj;
@@ -3688,6 +3589,28 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_StepHipTraj_get_time(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  StepHipTraj *arg1 = (StepHipTraj *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  float result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:StepHipTraj_get_time",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_StepHipTraj, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "StepHipTraj_get_time" "', argument " "1"" of type '" "StepHipTraj *""'"); 
+  }
+  arg1 = reinterpret_cast< StepHipTraj * >(argp1);
+  result = (float)(arg1)->get_time();
+  resultobj = SWIG_From_float(static_cast< float >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_delete_StepHipTraj(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   StepHipTraj *arg1 = (StepHipTraj *) 0 ;
@@ -3731,6 +3654,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"StepHipTraj_init", _wrap_StepHipTraj_init, METH_VARARGS, NULL},
 	 { (char *)"StepHipTraj_splineInterpolate", _wrap_StepHipTraj_splineInterpolate, METH_VARARGS, NULL},
 	 { (char *)"StepHipTraj_get_step_time", _wrap_StepHipTraj_get_step_time, METH_VARARGS, NULL},
+	 { (char *)"StepHipTraj_get_time", _wrap_StepHipTraj_get_time, METH_VARARGS, NULL},
 	 { (char *)"delete_StepHipTraj", _wrap_delete_StepHipTraj, METH_VARARGS, NULL},
 	 { (char *)"StepHipTraj_swigregister", StepHipTraj_swigregister, METH_VARARGS, NULL},
 	 { NULL, NULL, 0, NULL }
