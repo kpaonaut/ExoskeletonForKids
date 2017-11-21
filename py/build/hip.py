@@ -9,12 +9,12 @@ if _swig_python_version_info >= (2, 7, 0):
     def swig_import_helper():
         import importlib
         pkg = __name__.rpartition('.')[0]
-        mname = '.'.join((pkg, '_trajectory_template')).lstrip('.')
+        mname = '.'.join((pkg, '_hip')).lstrip('.')
         try:
             return importlib.import_module(mname)
         except ImportError:
-            return importlib.import_module('_trajectory_template')
-    _trajectory_template = swig_import_helper()
+            return importlib.import_module('_hip')
+    _hip = swig_import_helper()
     del swig_import_helper
 elif _swig_python_version_info >= (2, 6, 0):
     def swig_import_helper():
@@ -22,20 +22,20 @@ elif _swig_python_version_info >= (2, 6, 0):
         import imp
         fp = None
         try:
-            fp, pathname, description = imp.find_module('_trajectory_template', [dirname(__file__)])
+            fp, pathname, description = imp.find_module('_hip', [dirname(__file__)])
         except ImportError:
-            import _trajectory_template
-            return _trajectory_template
+            import _hip
+            return _hip
         try:
-            _mod = imp.load_module('_trajectory_template', fp, pathname, description)
+            _mod = imp.load_module('_hip', fp, pathname, description)
         finally:
             if fp is not None:
                 fp.close()
         return _mod
-    _trajectory_template = swig_import_helper()
+    _hip = swig_import_helper()
     del swig_import_helper
 else:
-    import _trajectory_template
+    import _hip
 del _swig_python_version_info
 
 try:
@@ -103,50 +103,50 @@ class StepHipTraj(_object):
     __repr__ = _swig_repr
 
     def __init__(self):
-        this = _trajectory_template.new_StepHipTraj()
+        this = _hip.new_StepHipTraj()
         try:
             self.this.append(this)
         except __builtin__.Exception:
             self.this = this
 
     def reset(self):
-        return _trajectory_template.StepHipTraj_reset(self)
+        return _hip.StepHipTraj_reset(self)
 
     def Increment(self):
-        return _trajectory_template.StepHipTraj_Increment(self)
+        return _hip.StepHipTraj_Increment(self)
 
     def set_max_hip_flexion(self, value):
-        return _trajectory_template.StepHipTraj_set_max_hip_flexion(self, value)
+        return _hip.StepHipTraj_set_max_hip_flexion(self, value)
 
     def set_max_hip_flexion_time(self, value):
-        return _trajectory_template.StepHipTraj_set_max_hip_flexion_time(self, value)
+        return _hip.StepHipTraj_set_max_hip_flexion_time(self, value)
 
     def set_walking_angle(self, value):
-        return _trajectory_template.StepHipTraj_set_walking_angle(self, value)
+        return _hip.StepHipTraj_set_walking_angle(self, value)
 
     def set_swing_start(self, value):
-        return _trajectory_template.StepHipTraj_set_swing_start(self, value)
+        return _hip.StepHipTraj_set_swing_start(self, value)
 
     def set_step_time(self, value):
-        return _trajectory_template.StepHipTraj_set_step_time(self, value)
+        return _hip.StepHipTraj_set_step_time(self, value)
 
     def set_step_range(self, value):
-        return _trajectory_template.StepHipTraj_set_step_range(self, value)
+        return _hip.StepHipTraj_set_step_range(self, value)
 
     def set_leg_length(self, arg2):
-        return _trajectory_template.StepHipTraj_set_leg_length(self, arg2)
+        return _hip.StepHipTraj_set_leg_length(self, arg2)
 
     def init(self):
-        return _trajectory_template.StepHipTraj_init(self)
+        return _hip.StepHipTraj_init(self)
 
     def splineInterpolate(self):
-        return _trajectory_template.StepHipTraj_splineInterpolate(self)
+        return _hip.StepHipTraj_splineInterpolate(self)
 
     def get_step_time(self):
-        return _trajectory_template.StepHipTraj_get_step_time(self)
-    __swig_destroy__ = _trajectory_template.delete_StepHipTraj
+        return _hip.StepHipTraj_get_step_time(self)
+    __swig_destroy__ = _hip.delete_StepHipTraj
     __del__ = lambda self: None
-StepHipTraj_swigregister = _trajectory_template.StepHipTraj_swigregister
+StepHipTraj_swigregister = _hip.StepHipTraj_swigregister
 StepHipTraj_swigregister(StepHipTraj)
 
 # This file is compatible with both classic and new-style classes.

@@ -1,4 +1,4 @@
-#include "trajectory_template.h"
+#include "hip.h"
 #include "spline.h"
 #include <iostream> // debug
 #include <cstdio>

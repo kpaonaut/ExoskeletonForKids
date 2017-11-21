@@ -1,5 +1,5 @@
-#!/usr/bin/env python3
-__author__ = 'Bradley Perry'
+#!/usr/bin python
+__author__ = 'Bradley Perry, Rui Wang'
 
 import numpy as np
 
@@ -13,11 +13,11 @@ class Pilot:
             self.height = height
         if mass is not None:
             self.mass = mass
-        self.m_shank = 0.061 * self.mass
+        self.m_shank = 0.061 * self.mass # define mass for different parts
         self.m_thigh = 0.1 * self.mass
         self.m_torso = 0.678 * self.mass
 
-        self.l_shank = 0.285 * self.height
+        self.l_shank = 0.285 * self.height # define length for different parts
         self.l_thigh = 0.2450 * self.height
         self.l_torso = 0.470 * self.height
         self.l_foot = 0.13 * self.height
@@ -116,8 +116,7 @@ def main():
     estimator = PoseEstimator()
     blah = estimator.CalculatePose(exo_angles)
     np.set_printoptions(precision=3, suppress=True)
-    print(blah)
-
+    # print(blah)
 
 if __name__ == "__main__":
     main()

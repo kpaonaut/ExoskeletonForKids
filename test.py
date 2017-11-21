@@ -7,6 +7,6 @@ class trial:
 def main():
     t = trial()
     a, b = t.fooo()
-    print a, b
+    print (a)
 
 if __name__ == "__main__": main()

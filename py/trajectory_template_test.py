@@ -1,4 +1,4 @@
-import build.trajectory_template as trajectory_template
+import build.hip as hip
 import build.knee as knee
 import matplotlib.pyplot as plt
 import numpy as np
@@ -6,7 +6,7 @@ import numpy as np
 sample_time = 0.001									# in seconds
 
 ### Hip
-hip_traj_generator = trajectory_template.StepHipTraj()  # new object
+hip_traj_generator = hip.StepHipTraj()  # new object
 
 hip_traj_generator.reset()
 hip_traj_generator.set_max_hip_flexion(36.202)			# degrees

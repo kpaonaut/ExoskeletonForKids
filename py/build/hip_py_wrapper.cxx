@@ -3020,16 +3020,16 @@ static swig_module_info swig_module = {swig_types, 3, 0, 0, 0, 0};
 #endif
 
 /*-----------------------------------------------
-              @(target):= _trajectory_template.so
+              @(target):= _hip.so
   ------------------------------------------------*/
 #if PY_VERSION_HEX >= 0x03000000
-#  define SWIG_init    PyInit__trajectory_template
+#  define SWIG_init    PyInit__hip
 
 #else
-#  define SWIG_init    init_trajectory_template
+#  define SWIG_init    init_hip
 
 #endif
-#define SWIG_name    "_trajectory_template"
+#define SWIG_name    "_hip"
 
 #define SWIGVERSION 0x030012 
 #define SWIG_VERSION SWIGVERSION
@@ -3114,7 +3114,7 @@ namespace swig {
 
 #include <stdlib.h>
 #include <iostream>
-#include "../../trajectory_template.h"
+#include "../../hip.h"
 
 
   #define SWIG_From_double   PyFloat_FromDouble 

@@ -1,11 +1,11 @@
-%module trajectory_template
+%module hip
 %include typemaps.i
 %apply float *OUTPUT { float *traj_value };
 
 %{
 #include <stdlib.h>
 #include <iostream>
-#include "../../trajectory_template.h"
+#include "../../hip.h"
 %}
 
-%include "../trajectory_template.h"
+%include "../hip.h"

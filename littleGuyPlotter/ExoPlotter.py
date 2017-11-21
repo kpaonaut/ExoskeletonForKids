@@ -1,6 +1,6 @@
 __author__ = 'Raghid Mardini'
 
-import numpy as np #numpy
+import numpy as np
 import pylab as pl
 import matplotlib.collections  as mc
 import matplotlib.pyplot as plt
@@ -60,14 +60,17 @@ def main():
     exo_plotter_axis = fig.add_axes([0.75,0.1,0.2,0.3])
     plotter = ExoPlotter(exo_plotter_axis)
 
-    Points = np.array([[ 0.0    , 0.0   ],
-                        [-0.172 , 0.149],
-                        [ 0.154 , 0.526],
-                        [ 0.434 , 0.851],
-                        [ 0.577 , 1.661],
-                        [ 0.675 , 0.496],
-                        [ 0.622 , 0.   ],
-                        [ 0.849 ,-0.024]])
+    # Points = np.array([[ 0.0    , 0.0   ],
+    #                     [-0.172 , 0.149],
+    #                     [ 0.154 , 0.526],
+    #                     [ 0.434 , 0.851],
+    #                     [ 0.577 , 1.661],
+    #                     [ 0.675 , 0.496],
+    #                     [ 0.622 , 0.   ],
+    #                     [ 0.849 ,-0.024]])
+    import PoseEstimator as est
+    estimator = est.PoseEstimator()
+    estimator.CalculatePose(angles) # angles is obtained from increment()!
 
     colors = ("r","b")
     plotter.Update(Points,colors)
