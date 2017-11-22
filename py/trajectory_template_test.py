@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import parameters as par
 
-sample_time = 0.001									# in seconds
+sample_time = 0.001 # in seconds
 halfTotalTime = 2
 
 ### left Hip

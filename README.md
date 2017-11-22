@@ -1,5 +1,5 @@
 ## Exoskeleton Control
-#### By [Rui Wang](www.aray.pub), Dept. MechE, Tsinghua University 11/21/2017 @ UC Berkeley
+#### By [Rui Wang](http://www.aray.pub), Dept. MechE, Tsinghua University 11/21/2017 @ UC Berkeley
 ### Introduction
 This repository contains all codes for exoskeleton control for children with *cerebral palsy* (CP). We have an exoskeleton designed with two actuators, for the hip and the knee joint, respectively. The task is to control both two joints and let them follow desirable trajectories and/or generate desirable torque.
 
@@ -84,8 +84,8 @@ In fact, there is no workaround - we cannot ensure a period of double-stance unl
 ### Acknowledgements
 Note that as the file is just circulated inside our group, these guys listed will not get rewarded. However, they are warmly wished happy Thanksgiving.
 
-**Raghid Mardini**, Software and Controls Engineer Lead @ [SuitX](www.suitx.com)
-**Michael McKinley**, Unknown Title @ [SuitX](www.suitx.com)
-**Emily Stednitz** @ 102B group control squad
-**Blake Hamid, Ennzhi Chew, Serhad Katzermanian** @ 102B group mechanical design squad
-**Kazerooni**, professor at UC Berkeley, but more of a CEO @ [SuitX](www.suitx.com)
+* **Raghid Mardini**, Software and Controls Engineer Lead @ [SuitX](http://www.suitx.com)
+* **Michael McKinley**, Unknown Title @ [SuitX](http://www.suitx.com)
+* **Emily Stednitz** @ 102B group control squad
+* **Blake Hamid, Ennzhi Chew, Serhad Katzermanian** @ 102B group mechanical design squad
+* **Kazerooni**, professor at UC Berkeley, but more of a CEO @ [SuitX](http://www.suitx.com)

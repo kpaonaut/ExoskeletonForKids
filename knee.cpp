@@ -43,11 +43,11 @@ void StepKneeTraj::splineInterpolate()
     Y = std::vector<double>(9);
     starting_time_ =  -0.2 * step_time_; // the starting time, x offset
     X[0] = starting_time_; Y[0] = min_knee_flexion;
-    X[1] = 0; Y[1] = 0.3 * max_knee_flexion + 0.7 * min_knee_flexion;
+    X[1] = 0; Y[1] = 0.15 * max_knee_flexion + 0.85 * min_knee_flexion;
     X[2] = X[0] + 0.5*step_time_ - 10; Y[2] = max_knee_flexion;
     X[3] = X[0] + 0.5*step_time_ + 10; Y[3] = max_knee_flexion;
-    X[4] = starting_time_ + step_time_ - 10; X[5] = starting_time_ + step_time_ + 10; Y[4] = Y[0]; Y[5] = Y[0];
-    X[6] = X[4] + 0.333*step_time_; Y[6] = second_knee_flexion;
+    X[4] = step_time_ - 1; X[5] = step_time_ + 1; Y[4] = Y[0]; Y[5] = Y[0];
+    X[6] = X[4] + 0.25 * step_time_; Y[6] = second_knee_flexion;
     X[7] = X[6] + 20; Y[7] = second_knee_flexion;
     X[8] = X[0] + 2*step_time_; Y[8] = Y[0];
     s.set_boundary(tk::spline::first_deriv, 0.0, tk::spline::first_deriv, 0.0, false);

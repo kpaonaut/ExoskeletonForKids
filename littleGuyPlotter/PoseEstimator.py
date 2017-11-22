@@ -18,7 +18,7 @@ class Pilot:
         self.l_shank = 0.285 * self.height # define length for different parts
         self.l_thigh = 0.2450 * self.height
         self.l_torso = 0.470 * self.height
-        self.l_foot = 0.12 * self.height
+        self.l_foot = 0.06 * self.height # default 0.12
         self.CalculateCOM()
         self.CalculateMOI()
 

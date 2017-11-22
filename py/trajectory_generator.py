@@ -78,50 +78,56 @@ class TrajectoryGenerator:
     def resumeTrigger(self):
         self.stopTriggered = 0
 
+    def carryOut(self): # carry out calculation
+        self.doneHipl, self.hip_value_l = self.hip_trajectory_generator_l.Increment()
+        self.doneKneel, self.knee_value_l = self.knee_trajectory_generator_l.Increment() # generate traj in next time step
+        # two knees are stoped together, as their derivative happen to be 0 at the same time, one at minima, one at maxima
+        # two hips are stopeed the same way.
+        if (self.rightStarted == 1) or (self.hip_trajectory_generator_l.get_time() > self.halfTotalTime):
+            self.doneHipr, self.hip_value_r = self.hip_trajectory_generator_r.Increment()
+            self.doneKneer, self.knee_value_r = self.knee_trajectory_generator_r.Increment() # generate traj in next time step
+            self.rightStarted = 1
+        else:
+            self.hip_value_r = self.hip_value_l
+            self.knee_value_r = self.knee_value_l
+        self.doneHip = self.doneHipl | self.doneHipr
+        self.doneKnee = self.doneKneel | self.doneKneer
+
     def generateTrajectory(self):
         if self.stopTriggered:
-            # if self.doneHip, self.doneKnee, then do nothing, directly output the previous angles
-            if self.doneHip == 0 and self.doneKnee: # stopTriggered: stop trigger signal
-                self.doneHipl, self.hip_value_l = self.hip_trajectory_generator_l.Increment()
-                if (self.rightStarted == 1) or (self.hip_trajectory_generator_l.get_time() > self.halfTotalTime):
-                    self.doneHipr, self.hip_value_r = self.hip_trajectory_generator_r.Increment()
-                    self.rightStarted = 1
-                else:
-                    self.hip_value_r = self.hip_value_l
-                self.doneHip = self.doneHipl | self.doneHipr # either leg done is done!
+            # # if self.doneHip, self.doneKnee, then do nothing, directly output the previous angles
+            # if self.doneHip == 0 and self.doneKnee: # stopTriggered: stop trigger signal
+            #     self.doneHipl, self.hip_value_l = self.hip_trajectory_generator_l.Increment()
+            #     if (self.rightStarted == 1) or (self.hip_trajectory_generator_l.get_time() > self.halfTotalTime):
+            #         self.doneHipr, self.hip_value_r = self.hip_trajectory_generator_r.Increment()
+            #         self.rightStarted = 1
+            #     else:
+            #         self.hip_value_r = self.hip_value_l
+            #     self.doneHip = self.doneHipl | self.doneHipr # either leg done is done!
 
-            elif self.doneHip == 0 and self.doneKnee == 0:
-                self.doneHipl, self.hip_value_l = self.hip_trajectory_generator_l.Increment()
-                self.doneKneel, self.knee_value_l = self.knee_trajectory_generator_l.Increment() # generate traj in next time step
-                # two knees are stoped together, as their derivative happen to be 0 at the same time, one at minima, one at maxima
-                # two hips are stopeed the same way.
-                if (self.rightStarted == 1) or (self.hip_trajectory_generator_l.get_time() > self.halfTotalTime):
-                    self.doneHipr, self.hip_value_r = self.hip_trajectory_generator_r.Increment()
-                    self.doneKneer, self.knee_value_r = self.knee_trajectory_generator_r.Increment() # generate traj in next time step
-                    self.rightStarted = 1
-                else:
-                    self.hip_value_r = self.hip_value_l
-                    self.knee_value_r = self.knee_value_l
-                self.doneHip = self.doneHipl | self.doneHipr
-                self.doneKnee = self.doneKneel | self.doneKneer
+            # elif self.doneHip == 0 and self.doneKnee == 0:
+            #     self.doneHipl, self.hip_value_l = self.hip_trajectory_generator_l.Increment()
+            #     self.doneKneel, self.knee_value_l = self.knee_trajectory_generator_l.Increment() # generate traj in next time step
+            #     # two knees are stoped together, as their derivative happen to be 0 at the same time, one at minima, one at maxima
+            #     # two hips are stopeed the same way.
+            #     if (self.rightStarted == 1) or (self.hip_trajectory_generator_l.get_time() > self.halfTotalTime):
+            #         self.doneHipr, self.hip_value_r = self.hip_trajectory_generator_r.Increment()
+            #         self.doneKneer, self.knee_value_r = self.knee_trajectory_generator_r.Increment() # generate traj in next time step
+            #         self.rightStarted = 1
+            #     else:
+            #         self.hip_value_r = self.hip_value_l
+            #         self.knee_value_r = self.knee_value_l
+            #     self.doneHip = self.doneHipl | self.doneHipr
+            #     self.doneKnee = self.doneKneel | self.doneKneer
+            if self.doneHip == 0:
+                self.carryOut()
 
         else: # stop signal not triggered
-            self.doneHipl, self.hip_value_l = self.hip_trajectory_generator_l.Increment()
-            self.doneKneel, self.knee_value_l = self.knee_trajectory_generator_l.Increment() # generate traj in next time step
-            # two knees are stoped together, as their derivative happen to be 0 at the same time, one at minima, one at maxima
-            # two hips are stopeed the same way.
-            if (self.rightStarted == 1) or (self.hip_trajectory_generator_l.get_time() > self.halfTotalTime):
-                self.doneHipr, self.hip_value_r = self.hip_trajectory_generator_r.Increment()
-                self.doneKneer, self.knee_value_r = self.knee_trajectory_generator_r.Increment() # generate traj in next time step
-                self.rightStarted = 1
-            else:
-                self.hip_value_r = self.hip_value_l
-                self.knee_value_r = self.knee_value_l
-            self.doneHip = self.doneHipl | self.doneHipr
-            self.doneKnee = self.doneKneel | self.doneKneer
+            self.carryOut()
         
         self.angles = np.array([self.walking_angle, self.hip_value_l - self.walking_angle, self.knee_value_l,
                            self.hip_value_r - self.walking_angle, self.knee_value_r]) # FIXME! generate for different legs!
+        # print self.hip_trajectory_generator_l.get_time(), self.hip_trajectory_generator_r.get_time()
         return self.angles
 
     def getTime(self):
