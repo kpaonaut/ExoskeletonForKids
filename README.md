@@ -76,7 +76,7 @@ For a previous version, I also implemented a _4-th order + 3-rd_ order version, 
 ### Stopping
 In order to stop, it is better to have all velocities at zero, otherwise the motor will stop abruptly. However, from all data we can conclude that this is not the case for real human walking. I also tried this method and plot it, the result was not desirable. So there is a trade-off here.
 
-By observation, we can see that in normal human walking data, front thigh, back thigh, and front knee almost reaches zero velocity at the same time. It is only the back knee that is moving fast. To be exact, at 150 degrees per second. My current implementation is to just let it stop there. The best solution, however, is to implement a different curve for the exoskeleton.
+By observation, we can see that in normal human walking data, front thigh, back thigh, and front knee almost reaches zero velocity at the same time. It is only the back knee that is moving fast. To be exact, at 150 degrees per second. In this version, I favored the smooth stop with velocity 0, but the walking quality is thus sacrificed.
 
 ### Plotting
 The plotting for the little guy is designed such that the little guy looks like to be walking on a treadmill. The result looks good. The idea is to
