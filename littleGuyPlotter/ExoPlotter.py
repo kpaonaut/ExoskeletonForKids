@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-__author__ = 'Rui Wang, Raghid Mardini'
-
 import numpy as np
 import pylab as pl
 import matplotlib.collections  as mc
@@ -31,7 +29,8 @@ class ExoPlotter:
                 [ array[3,:],array[4,:] ] , 
                 [ array[3,:],array[5,:] ] , 
                 [ array[5,:],array[6,:] ] , 
-                [ array[6,:],array[7,:] ]]
+                [ array[6,:],array[7,:] ] ,
+                [ np.array([-1.5, 0]), np.array([1.5, 0])]]
 
         self.ax.clear()
         self.__PlotLines(lines,color, fig)
@@ -43,12 +42,14 @@ class ExoPlotter:
         self.ax.add_collection(lc)
         lc = mc.LineCollection(lines[4:7],color=color[1],linewidths=2)
         self.ax.add_collection(lc)
+        lc = mc.LineCollection(lines[7:8],  color=color[2],linewidths=1) # ground
+        self.ax.add_collection(lc)
 
         self.ax.set_aspect('equal')
         self.ax.margins(0.1)
         axes = plt.gca()
-        axes.set_xlim([-1, 1])
-        axes.set_ylim([-1.5, 1.5])
+        axes.set_xlim([-1.5, 1.5]) # set axis scale fixed!
+        axes.set_ylim([-0.1, 2])
         # plt.show()
         # plt.draw()
         fig.canvas.draw() # FIXME this line is making the plotting VERY slow!
@@ -73,19 +74,19 @@ def main():
     #exo_plotter_axis = fig.add_axes([0.75,0.1,0.2,0.3])
     exo_plotter_axis = fig.add_axes([0.1,0.1,0.8,0.8]) # specify plot location
     plotter = ExoPlotter(exo_plotter_axis)
-    colors = ("r", "b")
+    colors = ("r", "b", "g")
     plt.ion() # allow interactive plot!
     import time
     plt.show()
 
-    for i in range(0, 10000):
+    for i in range(0, 1000000):
         angles = generator.generateTrajectory() # generate trajectory
         Points = estimator.CalculatePose(angles) # angles is obtained from increment()!
 
         if i%50 == 0:
-            print angles
+            # print angles
             plotter.Update(Points, colors, fig) # too slow??? The step time is shrinked to allow smooth plot!
-        # time.sleep(0.001)
+        time.sleep(0.001)
 
 if __name__ == "__main__":
     main()

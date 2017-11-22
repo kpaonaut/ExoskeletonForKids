@@ -12,7 +12,7 @@ void StepHipTraj::reset() {
     n = 4;
 }
 
-bool StepHipTraj::Increment(float* traj_value ) {
+int StepHipTraj::Increment(float* traj_value ) {
 	//*traj_value = max_hip_flexion_ * sin(t_ * 0.001); // Sample calculation
 
     if (numPiece < n-1 && t_ > X[numPiece+1]) numPiece++;
@@ -21,10 +21,10 @@ bool StepHipTraj::Increment(float* traj_value ) {
 
 	if (t_ >= 2*step_time_) {
         t_ -= 2*step_time_;
-		return true;
+		return 1;
 	}else{
 		t_ ++; // Incrementing current time by one time unit
-		return false;
+		return 0;
 	}
 }
 
@@ -46,14 +46,17 @@ void StepHipTraj::init() // the generation of spline
 
 void StepHipTraj::splineInterpolate()
 {
-    X = std::vector<double>(9);
-    Y = std::vector<double>(9);
-    X[0] = double(x[0]); X[3] = double(x[1]); X[6] = double(x[2]); X[8] = double(x[3]);
-    X[1] = 0.333*x[0] + 0.667*x[1]; X[5] = 0.333*x[1] + 0.667*x[2]; X[7] = 0.667*x[2] + 0.333*x[3];
-    Y[0] = double(y[0]); Y[3] = double(y[1]); Y[6] = double(y[2]); Y[8] = double(y[3]);
-    Y[1] = 0.5*y[0] + 0.5*y[1]; Y[5] = 0.1*y[1] + 0.9*y[2]; Y[7] = 0.5*y[2] + 0.5*y[3];
+    X = std::vector<double>(8);
+    Y = std::vector<double>(8);
+    X[0] = double(x[0]); Y[0] = double(y[0]);
+    X[5] = double(x[2]); Y[5] = double(y[2]);
+    X[7] = double(x[3]); Y[7] = double(y[3]);
+    X[1] = 0.667*x[0] + 0.333*x[1]; Y[1] = 0.667*y[0] + 0.333*y[1];
+    X[4] = 0.333*x[1] + 0.667*x[2]; Y[4] = 0.2*y[1] + 0.8*y[2];
+    X[6] = 0.667*x[2] + 0.333*x[3]; Y[6] = 0.667*y[2] + 0.333*y[3];
     // Next, add points next to x[1] to make its first derivative 0
-    X[2] = double(x[1]-1); Y[2] = y[1]; X[4] = double(x[1]+1); Y[4] = y[1];
+    X[2] = double(x[1] - 0.01*step_time_); Y[2] = y[1];
+    X[3] = double(x[1] + 0.01*step_time_); Y[3] = y[1];
 
     s.set_boundary(tk::spline::first_deriv, 0.0, tk::spline::first_deriv, 0.0, false);
     s.set_points(X, Y);

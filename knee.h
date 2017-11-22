@@ -12,7 +12,7 @@ class StepKneeTraj {
     StepKneeTraj() {
     }
     void reset();
-    bool Increment(float* traj_value);
+    int Increment(float* traj_value);
     void set_max_hip_flexion_time(float value);
     void set_walking_angle(float value); // offest for the entire trajectory
     void set_step_time(float value);
@@ -28,7 +28,7 @@ class StepKneeTraj {
     }
 
   private:
-    float max_hip_flexion_, walking_angle_, max_knee_flexion, second_knee_flexion, min_knee_flexion;
+    float walking_angle_, max_knee_flexion, second_knee_flexion, min_knee_flexion;
     float max_hip_flexion_time_, step_time_, t_, starting_time_;
     int numPiece, n; // which piece of spline the current point belongs to, starting from 0
     // n: the number of critical pts, for hip it's 4

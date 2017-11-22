@@ -1,8 +1,5 @@
 #!/usr/bin python
-__author__ = 'Bradley Perry, Rui Wang'
-
 import numpy as np
-
 
 class Pilot:
     def __init__(self, height=1.75, mass=80.7):
@@ -20,7 +17,7 @@ class Pilot:
         self.l_shank = 0.285 * self.height # define length for different parts
         self.l_thigh = 0.2450 * self.height
         self.l_torso = 0.470 * self.height
-        self.l_foot = 0.13 * self.height
+        self.l_foot = 0.12 * self.height
         self.CalculateCOM()
         self.CalculateMOI()
 
@@ -109,7 +106,13 @@ class PoseEstimator:
         # print joint_positions[7] - joint_positions[6]
         # print joint_positions[1] - joint_positions[0]
 
-        offset = joint_positions[3] # set origin at hip instead
+        # offset = joint_positions[3] # set origin at hip instead
+        miny = 100
+        for i in range(0, 8):
+            if joint_positions[i][1] < miny:
+                miny = joint_positions[i][1]
+                minx = joint_positions[i][0]
+        offset = np.array([joint_positions[3][0], miny]) # set origin at lowest point, middle
         joint_positions -= offset
         return joint_positions
 

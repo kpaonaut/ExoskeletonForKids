@@ -3128,9 +3128,9 @@ SWIG_From_float  (float value)
 
 
 SWIGINTERNINLINE PyObject*
-  SWIG_From_bool  (bool value)
+  SWIG_From_int  (int value)
 {
-  return PyBool_FromLong(value ? 1 : 0);
+  return PyInt_FromLong((long) value);
 }
 
 
@@ -3239,13 +3239,6 @@ SWIG_AsVal_float (PyObject * obj, float *val)
   return res;
 }
 
-
-SWIGINTERNINLINE PyObject*
-  SWIG_From_int  (int value)
-{
-  return PyInt_FromLong((long) value);
-}
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -3292,7 +3285,7 @@ SWIGINTERN PyObject *_wrap_StepKneeTraj_Increment(PyObject *SWIGUNUSEDPARM(self)
   float temp2 ;
   int res2 = SWIG_TMPOBJ ;
   PyObject * obj0 = 0 ;
-  bool result;
+  int result;
   
   arg2 = &temp2;
   if (!PyArg_ParseTuple(args,(char *)"O:StepKneeTraj_Increment",&obj0)) SWIG_fail;
@@ -3301,8 +3294,8 @@ SWIGINTERN PyObject *_wrap_StepKneeTraj_Increment(PyObject *SWIGUNUSEDPARM(self)
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "StepKneeTraj_Increment" "', argument " "1"" of type '" "StepKneeTraj *""'"); 
   }
   arg1 = reinterpret_cast< StepKneeTraj * >(argp1);
-  result = (bool)(arg1)->Increment(arg2);
-  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  result = (int)(arg1)->Increment(arg2);
+  resultobj = SWIG_From_int(static_cast< int >(result));
   if (SWIG_IsTmpObj(res2)) {
     resultobj = SWIG_Python_AppendOutput(resultobj, SWIG_From_float((*arg2)));
   } else {

@@ -12,7 +12,7 @@ class StepHipTraj {
 	StepHipTraj() {
 	}
 	void reset();
-	bool Increment(float* traj_value);
+	int Increment(float* traj_value);
 	void set_max_hip_flexion(float value);
     void set_max_hip_flexion_time(float value);
 	void set_walking_angle(float value); // offest for the entire trajectory
