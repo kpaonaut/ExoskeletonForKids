@@ -114,14 +114,16 @@ def main():
     # below is the code for listening to keyboard and pausing
     global signal
     signal = 0
+    ims = []
 
-    for i in range(0, 1000000):
+    for i in range(0, 100000):
         angles = generator.generateTrajectory() # generate trajectory
         Points = estimator.CalculatePose(angles) # angles is obtained from increment()!
 
         if i%50 == 0:
             # print angles
             plotter.Update(Points, colors, fig) # too slow??? The step time is shrinked to allow smooth plot!
+            plt.savefig('anim/' + str(i) + '.png')
         
         detectKeyboard()
         if signal == 1:
