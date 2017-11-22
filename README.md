@@ -1,5 +1,8 @@
 ## Exoskeleton Control
 #### By [Rui Wang](http://www.aray.pub), Dept. MechE, Tsinghua University 11/21/2017 @ UC Berkeley
+
+![walking man](littleGuyPlotter/littleGuy_smooth.gif)
+
 ### Introduction
 This repository contains all codes for exoskeleton control for children with *cerebral palsy* (CP). We have an exoskeleton designed with two actuators, for the hip and the knee joint, respectively. The task is to control both two joints and let them follow desirable trajectories and/or generate desirable torque.
 
