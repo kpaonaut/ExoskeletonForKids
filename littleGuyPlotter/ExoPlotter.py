@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+__author__ = 'Raghid Mardini, Rui Wang'
 import numpy as np
 import pylab as pl
 import matplotlib.collections  as mc
@@ -54,6 +55,37 @@ class ExoPlotter:
         # plt.draw()
         fig.canvas.draw() # FIXME this line is making the plotting VERY slow!
 
+import termios, fcntl, sys, os
+global signal
+def detectKeyboard():
+    fd = sys.stdin.fileno()
+    oldterm = termios.tcgetattr(fd)
+    newattr = termios.tcgetattr(fd)
+    newattr[3] = newattr[3] & ~termios.ICANON & ~termios.ECHO
+    termios.tcsetattr(fd, termios.TCSANOW, newattr)
+    oldflags = fcntl.fcntl(fd, fcntl.F_GETFL)
+    fcntl.fcntl(fd, fcntl.F_SETFL, oldflags | os.O_NONBLOCK)
+    global signal
+    try:
+        while 1:
+            try:
+                c = sys.stdin.read(1)
+                if c == 'p':
+                    signal = 1 - signal
+                    if signal == 1:
+                        print " The little guy is about to stop!"
+                    else:
+                        print " The little guy is about to resume!"
+                return
+            except IOError:
+                        termios.tcsetattr(fd, termios.TCSAFLUSH, oldterm)
+                        fcntl.fcntl(fd, fcntl.F_SETFL, oldflags)
+                        return
+    finally:
+        termios.tcsetattr(fd, termios.TCSAFLUSH, oldterm)
+        fcntl.fcntl(fd, fcntl.F_SETFL, oldflags)
+        return
+
 def main():
     # Points = np.array([[ 0.0    , 0.0   ],
     #                     [-0.172 , 0.149],
@@ -79,6 +111,10 @@ def main():
     import time
     plt.show()
 
+    # below is the code for listening to keyboard and pausing
+    global signal
+    signal = 0
+
     for i in range(0, 1000000):
         angles = generator.generateTrajectory() # generate trajectory
         Points = estimator.CalculatePose(angles) # angles is obtained from increment()!
@@ -86,6 +122,13 @@ def main():
         if i%50 == 0:
             # print angles
             plotter.Update(Points, colors, fig) # too slow??? The step time is shrinked to allow smooth plot!
+        
+        detectKeyboard()
+        if signal == 1:
+            generator.stopTrigger()
+        else:
+            generator.resumeTrigger()
+
         time.sleep(0.001)
 
 if __name__ == "__main__":

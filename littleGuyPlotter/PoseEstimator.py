@@ -1,4 +1,5 @@
 #!/usr/bin python
+__author__ = 'Bradley, Rui'
 import numpy as np
 
 class Pilot:
