@@ -122,6 +122,7 @@ def main():
         if i%50 == 0:
             # print angles
             plotter.Update(Points, colors, fig) # too slow??? The step time is shrinked to allow smooth plot!
+            # plt.savefig('im/' + str(i) + '.png')
         
         detectKeyboard()
         if signal == 1:

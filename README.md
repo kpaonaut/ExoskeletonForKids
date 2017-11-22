@@ -3,6 +3,8 @@
 ### Introduction
 This repository contains all codes for exoskeleton control for children with *cerebral palsy* (CP). We have an exoskeleton designed with two actuators, for the hip and the knee joint, respectively. The task is to control both two joints and let them follow desirable trajectories and/or generate desirable torque.
 
+![walking man](littleGuyPlotter/littleGuy_natural.gif)
+
 ### See it Running!
 We use C++ to carry out the calculation(for **speed**) while python to do the plotting(for **convenience**). An interface between two languages is established using [swig](www.swig.org).
 
@@ -94,7 +96,7 @@ There is one major deficiency with this exo model: that the ankle angle is alway
 In fact, there is no easy workaround - we cannot ensure a period of double-stance unless we generate the trajectory by **math equation** instead of **spline**. Nevertheless, we can rely on the fact that the actual exo foot is not as long as 0.12 body height, and the patient's foot actually exceeds that length. Human feet are soft and flexible, and the patient is able to have an actual double stance with his forefeet(or shoes, to be precise). Also, from the animation we can see that the foot is not lifted far from the floor after the instant "double-stance", therefore this approximation can be feasible.
 
 ### Acknowledgements
-Happy thanksgiving to these guys below:
+Happy thanksgiving to these guys:
 
 * **Raghid Mardini**, Software and Controls Engineer Lead @ [SuitX](http://www.suitx.com)
 * **Michael McKinley**, Unknown Title @ [SuitX](http://www.suitx.com)
