@@ -7,15 +7,15 @@
 This repository contains all codes for exoskeleton control for children with *cerebral palsy* (CP). We have an exoskeleton designed with two actuators, for the hip and the knee joint, respectively. The task is to control both two joints and let them follow desirable trajectories and/or generate desirable torque.
 
 ### See it Running!
-We use C++ to carry out the calculation(for **speed**) while python to do the plotting(for **convenience**). An interface between two languages is established using [swig](www.swig.org).
+We use C++ to carry out the calculation(for **speed**) while python to do the plotting(for **convenience**). An interface between two languages is established using [swig](http://www.swig.org).
 
-The package comes with source codes already built. You can see it running without doing extra building. However if you do modify the code, you may have to rebuild the project. This requires that **[swig](www.swig.org), python, matplotlib, numpy, and pynput** be installed properly on your computer. Also, this works for a UNIX-based system(LINUX, Mac OS). For windows there will be problems as I used some UNIX-specific commands for python programs and shell scripts.
+The package comes with source codes already built. You can see it running without doing extra building. However if you do modify the code, you may have to rebuild the project. This requires that **g++, [swig](http://www.swig.org), python, matplotlib, and numpy** be installed properly on your computer. Also, this works for a UNIX-based system(LINUX, Mac OS). For windows there will be problems as I used some UNIX-specific commands for python programs and shell scripts.
 
 To see it running directly, go to ```/littleGuyPlotter``` and type in commandline(note that your computer should be using python 2.7)
 
 	python ExoPlotter.py
 	
-Note that you can now press "p" on keyboard to stop the little guy and press "p" again to resume.
+This should show you a little guy starting to walk. At first due to initilization the man is not walking right, but wait for a walking cycle and as it reaches steady state, it will walk continuously. Note that you can now press "p" on keyboard to stop the little guy and press "p" again to resume. The guy will not pause immediately though, rather, it will wait till the end of this step.
 
 To build the project, first go to ```/py``` then use command ```make```. This will generate a folder ```/build``` where warped C++ files for python will be created.
 
@@ -24,16 +24,20 @@ In folder ```/py``` run
 ```
 python trajectory_template_test.py
 ```
-to see a plot of two trajectories, of the hip angle and knee angle, respectively. The x-axis is time while y-axis is the angle of two joints.
+to see a plot of two trajectories, of the hip angle and knee angle, respectively. The sample plot is provided below. The x-axis is time while y-axis is the angle of two joints.
+![trajectory](py/trajectorySample.png)
 
 For better illustration, apart from the trajectory, we also included a file that plots a little guy who walks according to the trajectory we generated for his both two joints.
 
-Go to /littleGuyPlotter, run
+Go to ```/littleGuyPlotter```, run
 
 ```
 python ExoPlotter.py
 ```
 This will generate a dynamic graph where a little guy is walking according to the parameters we assigned him.
+
+#### __Issue:__
+**On some people's computers (or because of some different versions of matplotlib) the little guy does not appear when the command is executed. If this is the case, simply add a sentence ```time.sleep(0.001)``` in ```ExoPlotter.py```, line 127, directly after plotting, to allow the animation time to be updated.**
 
 If you have changed the C++ file, you will need to rebuild the project. Under ```/littleGuyPlotter```, use command
 
@@ -46,6 +50,7 @@ The major architecture for the folder and their functions explained (irrelevent 
 ```
 .
 ├── README.md                           # readme
+├── spline.h									# spline interpolation
 ├── hip.h, knee.h, hip.cpp, knee.cpp    # knee & hip trajctory
 ├── littleGuyPlotter
 │   ├── ExoPlotter.py                   # plot the little walking man
@@ -62,7 +67,7 @@ The major architecture for the folder and their functions explained (irrelevent 
 └── spline.h                            # generate spline
 ```
 
-```/littleGuyPlotter/trajectory_generator.py``` is manily used for generating the trajectory. It can be paused and resumed through outside signal.
+```/littleGuyPlotter/trajectory_generator.py``` is manily used for generating the trajectory. It can be paused and resumed through outside signal, like a press of a button.
 
 To show this in software, I enabled a keyboard pausing mechanism through the same interface. Run ```ExoPlotter.py```, then you can press "p" on the keyboard to make the little guy stop. Note that the little guy will not stop immediately, rather, it will choose to stop at a suitable time, as described above.
 
@@ -72,14 +77,23 @@ For most parameters, modify them in ```/py/parameters.py```. You will not need t
 Other parameters are defined in C++ files and are relatively fixed. They are already tuned(for more than 3 hours I am tuning these parameters) and please, do not modify them unless you know what you are doing. Plus, you will need to rebuild the entire project, so you do not want to tune them.
 
 ### Trajectory Generation
+
+#### Angle Data
+We acquired the base data published on Clinical Gait Analysis, also known as [CGA](http://www.clinicalgaitanalysis.com/). The data we mainly referred to is also available [here](/data/Paulo_44_10yo.xlsx), it is based on 44 samples of kids averaging 10 years old. Plotting the data, we get a basic idea of how the curve should look like.
+![curve](data/rawData.png)
+
+From there we set out to determine our curve input that we want the actuator to follow. Note that there are several key points we are interested in in order to generate the curve. In order for the curve to be generally desirable while adjustable, we manually selected these points and generate the curve accordingly. The curve has to pass through these points, while maintaining a similar shape as shown here.
+
+#### Spline Interpolation
 I used 3-rd order spline to generate the trajectory. In order to generate a desirable shape, I added redundant points on the graph to ensure a good performance. This method is very flexible and robust, though it might require a little tuning(but once tuned, you are good for any change in other parameters, plus I actually tuned it only once, so there is not really any major trade-off here).
 
-For a previous version, I also implemented a _4-th order + 3-rd_ order version, with all 13 coefficients pre-solved manually. However, over-fitting is inevitable under certain circumstances. Also, the solution is only feasible for normal walking, and cannot be adjusted to any other trajectory, which is not really portable.
+For a previous version, I also implemented a _4-th order + 3-rd_ order version, with all _13_ coefficients pre-solved manually. However, over-fitting is inevitable under certain circumstances. Also, the solution is only feasible for normal walking, and cannot be adjusted to any other trajectory, which is not really portable. The takeaway here is that _3-rd_ order spline performs much better than higher orders in terms of overfitting issues, and therefore is the best way for spline generation. To see a simple example of overfitting, observe the plot attached below. Note how the red curve(hip angle trajectory) descends first before rising.
+![overfitting](py/overfitting.png)
 
 ### Stopping
 In order to stop, it is better to have all velocities at zero, otherwise the motor will stop abruptly. However, from all data we can conclude that this is not the case for real human walking. I also tried this method and plot it, the result was not desirable. So there is a trade-off here.
 
-By observation, we can see that in normal human walking data, front thigh, back thigh, and front knee almost reaches zero velocity at the same time. It is only the back knee that is moving fast. To be exact, at 150 degrees per second. In this version, I favored the smooth stop with velocity 0, but the walking quality is thus sacrificed.
+By observation, we can see that in normal human walking data, front hip angle, back hip angle, and front knee angle almost reach zero velocity at the same time. It is only the back knee that is moving fast. To be exact, at around 150 degrees per second. In this version, I favored the smooth stop with velocity 0, but the walking quality is thus sacrificed.
 
 ### Plotting
 The plotting for the little guy is designed such that the little guy looks like to be walking on a treadmill. The result looks good. The idea is to
@@ -97,9 +111,12 @@ There is one major deficiency with this exo model: that the ankle angle is alway
 In fact, there is no easy workaround - we cannot ensure a period of double-stance unless we generate the trajectory by **math equation** instead of **spline**. Nevertheless, we can rely on the fact that the actual exo foot is not as long as 0.12 body height, and the patient's foot actually exceeds that length. Human feet are soft and flexible, and the patient is able to have an actual double stance with his forefeet(or shoes, to be precise). Also, from the animation we can see that the foot is not lifted far from the floor after the instant "double-stance", therefore this approximation can be feasible.
 
 ### Acknowledgements
-Happy thanksgiving to these guys below:
+The code in this repo is mainly written by me.
+
+Many thanks for these people who provided help throughout this project. Without them, our project will not be possible.
 
 * **Raghid Mardini**, Software and Controls Engineer Lead @ [SuitX](http://www.suitx.com)
 * **Michael McKinley**, Unknown Title @ [SuitX](http://www.suitx.com)
 * **Emily Stednitz** @ 102B group control squad
 * **Blake Hamid, Ennzhi Chew, Serhad Katzermanian** @ 102B group mechanical design squad
+* **Professor Kazerooni** @ UC Berkeley MechE, CEO @ [SuitX](http://www.suitx.com)
