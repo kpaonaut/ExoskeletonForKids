@@ -1,6 +1,5 @@
 ## Exoskeleton Control
 #### By [Rui Wang](http://www.aray.pub), Dept. MechE, Tsinghua University 11/21/2017 @ UC Berkeley
-
 ![walking man](littleGuyPlotter/littleGuy_smooth.gif)
 
 ### Introduction
