@@ -3574,6 +3574,28 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_StepKneeTraj_get_initial_pos(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  StepKneeTraj *arg1 = (StepKneeTraj *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  float result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:StepKneeTraj_get_initial_pos",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_StepKneeTraj, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "StepKneeTraj_get_initial_pos" "', argument " "1"" of type '" "StepKneeTraj *""'"); 
+  }
+  arg1 = reinterpret_cast< StepKneeTraj * >(argp1);
+  result = (float)(arg1)->get_initial_pos();
+  resultobj = SWIG_From_float(static_cast< float >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_delete_StepKneeTraj(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   StepKneeTraj *arg1 = (StepKneeTraj *) 0 ;
@@ -3617,6 +3639,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"StepKneeTraj_splineInterpolate", _wrap_StepKneeTraj_splineInterpolate, METH_VARARGS, NULL},
 	 { (char *)"StepKneeTraj_get_step_time", _wrap_StepKneeTraj_get_step_time, METH_VARARGS, NULL},
 	 { (char *)"StepKneeTraj_get_time", _wrap_StepKneeTraj_get_time, METH_VARARGS, NULL},
+	 { (char *)"StepKneeTraj_get_initial_pos", _wrap_StepKneeTraj_get_initial_pos, METH_VARARGS, NULL},
 	 { (char *)"delete_StepKneeTraj", _wrap_delete_StepKneeTraj, METH_VARARGS, NULL},
 	 { (char *)"StepKneeTraj_swigregister", StepKneeTraj_swigregister, METH_VARARGS, NULL},
 	 { NULL, NULL, 0, NULL }

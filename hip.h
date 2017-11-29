@@ -31,6 +31,10 @@ class StepHipTraj {
         return t_ * 0.001;
     }
 
+    inline float get_initial_pos(){
+        return s(0);
+    }
+
   private:
 	float swing_start_;
 	float max_hip_flexion_;

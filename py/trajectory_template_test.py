@@ -1,3 +1,7 @@
+"""
+This is a plotter that generates the trajectory for both knee and hip angle
+with data stored in parameters.py. Most of the parameters are tunable.
+"""
 import build.hip as hip
 import build.knee as knee
 import matplotlib.pyplot as plt

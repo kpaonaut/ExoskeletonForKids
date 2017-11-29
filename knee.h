@@ -31,6 +31,10 @@ class StepKneeTraj {
         return t_ * 0.001;
     }
 
+    inline float get_initial_pos(){
+        return s(0);
+    }
+
   private:
     float walking_angle_, max_knee_flexion, second_knee_flexion, min_knee_flexion;
     float max_hip_flexion_time_, step_time_, t_, starting_time_;

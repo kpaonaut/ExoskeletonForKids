@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-__author__ = 'Raghid Mardini, Rui Wang'
+__author__ = 'Rui Wang, Raghid Mardini'
 import numpy as np
 import pylab as pl
 import matplotlib.collections  as mc
@@ -97,7 +97,7 @@ def main():
     #                     [ 0.849 ,-0.024]])
     import PoseEstimator as pose
     from os import sys, path
-    sys.path.append(path.abspath(path.join(path.dirname(__file__), '../py')))
+    sys.path.append(path.abspath(path.join(path.dirname(__file__), '../py'))) # deal with import path issue
     import trajectory_generator as traj
     estimator = pose.PoseEstimator()
     generator = traj.TrajectoryGenerator() # np.array([walking angle, hip1, knee1, hip2, knee2])
@@ -123,7 +123,7 @@ def main():
         if i%50 == 0:
             # print angles
             plotter.Update(Points, colors, fig) # too slow??? The step time is shrinked to allow smooth plot!
-            plt.savefig('anim/' + str(i) + '.png')
+            # plt.savefig('anim/' + str(i) + '.png') - ENABLE this if you want to generate an animation
         
         detectKeyboard()
         if signal == 1:

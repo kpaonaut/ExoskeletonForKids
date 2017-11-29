@@ -147,6 +147,9 @@ class StepHipTraj(_object):
 
     def get_time(self):
         return _hip.StepHipTraj_get_time(self)
+
+    def get_initial_pos(self):
+        return _hip.StepHipTraj_get_initial_pos(self)
     __swig_destroy__ = _hip.delete_StepHipTraj
     __del__ = lambda self: None
 StepHipTraj_swigregister = _hip.StepHipTraj_swigregister

@@ -35,6 +35,14 @@ python ExoPlotter.py
 ```
 This will generate a dynamic graph where a little guy is walking according to the parameters we assigned him.
 
+Within the same folder, you can also run
+
+```
+python toeClearancePlotter.py
+```
+to plot the toe clearance, i.e. the height of the toe from the ground. This value gives an idea how hight the exo is lifting its feet when walking, hence the power consumption. Also this makes sure the person do not get tripped over.
+![toe](littleGuyPlotter/toe_clearance.png)
+
 #### __Issue:__
 **On some people's computers (or because of some different versions of matplotlib) the little guy does not appear when the command is executed. If this is the case, simply add a sentence ```time.sleep(0.001)``` in ```ExoPlotter.py```, line 127, directly after plotting, to allow the animation time to be updated.**
 
@@ -54,7 +62,8 @@ The major architecture for the folder and their functions explained (irrelevent 
 ├── littleGuyPlotter
 │   ├── ExoPlotter.py                   # plot the little walking man
 │   ├── PoseEstimator.py                # calculate coordinates used by ExoPlotter.py
-│   └── build.sh                        # for code
+│   ├── toeClearancePlotter.py          # plot height of the toe with respect to time
+│   └── build.sh                        # run this if you changed c++ and need to rebuild
 ├── py
 │   ├── Makefile                        # Makefile
 │   ├── build                           # swig-warped c++ files for python

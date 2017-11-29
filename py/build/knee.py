@@ -144,6 +144,9 @@ class StepKneeTraj(_object):
 
     def get_time(self):
         return _knee.StepKneeTraj_get_time(self)
+
+    def get_initial_pos(self):
+        return _knee.StepKneeTraj_get_initial_pos(self)
     __swig_destroy__ = _knee.delete_StepKneeTraj
     __del__ = lambda self: None
 StepKneeTraj_swigregister = _knee.StepKneeTraj_swigregister

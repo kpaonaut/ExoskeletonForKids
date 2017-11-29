@@ -52,7 +52,7 @@ void StepHipTraj::splineInterpolate()
     X[5] = double(x[2]); Y[5] = double(y[2]);
     X[7] = double(x[3]); Y[7] = double(y[3]);
     X[1] = 0.667*x[0] + 0.333*x[1]; Y[1] = 0.667*y[0] + 0.333*y[1];
-    X[4] = 0.333*x[1] + 0.667*x[2]; Y[4] = 0.1*y[1] + 0.9*y[2];
+    X[4] = 0.333*x[1] + 0.667*x[2]; Y[4] = 0.15*y[1] + 0.85*y[2];
     X[6] = 0.667*x[2] + 0.333*x[3]; Y[6] = 0.667*y[2] + 0.333*y[3];
     // Next, add points next to x[1] to make its first derivative 0
     X[2] = double(x[1] - 0.01*step_time_); Y[2] = y[1];
