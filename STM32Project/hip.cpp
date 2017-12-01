@@ -7,25 +7,25 @@
 //using namespace std; //debug
 
 void StepHipTraj::reset() {
-	t_ = 0;
+    t_ = 0;
     numPiece = 0;
     n = 4;
 }
 
 int StepHipTraj::Increment(float* traj_value ) {
-	//*traj_value = max_hip_flexion_ * sin(t_ * 0.001); // Sample calculation
+    //*traj_value = max_hip_flexion_ * sin(t_ * 0.001); // Sample calculation
 
     if (numPiece < n-1 && t_ > X[numPiece+1]) numPiece++;
 
     *traj_value = s(t_) + walking_angle_;
 
-	if (t_ >= 2*step_time_) {
+    if (t_ >= 2*step_time_) {
         t_ -= 2*step_time_;
-		return 1;
-	}else{
-		t_ ++; // Incrementing current time by one time unit
-		return 0;
-	}
+        return 1;
+    }else{
+        t_ ++; // Incrementing current time by one time unit
+        return 0;
+    }
 }
 
 #define PI 3.14159265
@@ -38,7 +38,8 @@ void StepHipTraj::init() // the generation of spline
     x[3] = 2*step_time_;
     y[0] = swing_start_;
     y[1] = max_hip_flexion_;
-    y[2] = 2 * asin(step_range_ / 2.0 / leglen) * 180 / PI;
+    //y[2] = 2 * asin(step_range_ / 2.0 / leglen) * 180 / PI;
+    y[2] = second_hip_flexion_;
     y[3] = swing_start_;
 
     splineInterpolate();
@@ -66,20 +67,24 @@ void StepHipTraj::set_max_hip_flexion(float value) {
     max_hip_flexion_ = value;
 }
 
+void StepHipTraj::set_second_hip_flexion(float value) {
+    second_hip_flexion_ = value;
+}
+
 void StepHipTraj::set_max_hip_flexion_time(float value) {
     max_hip_flexion_time_ = value; // in ms
 }
 
 void StepHipTraj::set_walking_angle(float value) {
-	walking_angle_ = value;
+    walking_angle_ = value;
 }
 
 void StepHipTraj::set_swing_start(float value) {
-	swing_start_ = value;
+    swing_start_ = value;
 }
 
 void StepHipTraj::set_step_time(float value) {
-	step_time_ = value; // in ms
+    step_time_ = value; // in ms
 }
 
 void StepHipTraj::set_step_range(float value) {

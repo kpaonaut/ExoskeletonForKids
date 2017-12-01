@@ -2,6 +2,7 @@
 // The value commented are default values (tuned values)
 namespace par{
 #define _max_hip_flexion_ 36
+#define _second_hip_flexion_ 25.3
 #define _max_hip_flexion_time_portion_ 0.8
 #define _hip_swing_start_ -12
 #define _step_range_ 0.42

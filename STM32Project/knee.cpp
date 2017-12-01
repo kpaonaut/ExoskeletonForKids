@@ -12,7 +12,7 @@ void StepKneeTraj::reset() {
     n = 5;
 }
 
-int StepKneeTraj::Increment(float* traj_value ) {
+float StepKneeTraj::Increment(float* traj_value ) {
 
     if (t_ < (2*step_time_ + starting_time_)) // there is an x-offset as well!
         *traj_value = s(t_); // no walking angle offset for knee relative angle
