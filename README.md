@@ -57,7 +57,7 @@ The major architecture for the folder and their functions explained (irrelevent 
 ```
 .
 ├── README.md                           # readme
-├── spline.h									# spline interpolation
+├── spline.h                            # spline interpolation
 ├── hip.h, knee.h, hip.cpp, knee.cpp    # knee & hip trajctory
 ├── littleGuyPlotter
 │   ├── ExoPlotter.py                   # plot the little walking man
@@ -72,12 +72,23 @@ The major architecture for the folder and their functions explained (irrelevent 
 │   ├── parameters.py                   # define key parameters
 │   ├── trajectory_generator.py         # generate trajectory for curve-plotting
 │   └── trajectory_template_test.py     # plot trajectory curve
+├── STM32Project								# the project that can actually run with STM32
+│   ├── hip.cpp
+│   ├── hip.h
+│   ├── knee.cpp
+│   ├── knee.h
+│   ├── main.cpp								# runs on STM32, prints hip angle every milisecond
+│   ├── parameters.h						# cpp version for parameters.py
+│   ├── spline.h
+│   └── trajectory_generator.h			# generates trajectory for one hip
 └── spline.h                            # generate spline
 ```
 
 ```/littleGuyPlotter/trajectory_generator.py``` is manily used for generating the trajectory. It can be paused and resumed through outside signal, like a press of a button.
 
 To show this in software, I enabled a keyboard pausing mechanism through the same interface. Run ```ExoPlotter.py```, then you can press "p" on the keyboard to make the little guy stop. Note that the little guy will not stop immediately, rather, it will choose to stop at a suitable time, as described above.
+
+In addition, to actually interface with the hardware, STM32 only recognizes cpp files. Therefore, we need to convert everything we previously used in python to c++. This needs some modification, and the files are stored under directory ```/STM32Project```.
 
 #### Tip: how to tune parameters:
 For most parameters, modify them in ```/py/parameters.py```. You will not need to rebuild. Note a tricky one is if you want to lower the hip angle at instant impact, you will need to decrease ```_step_range_``` or increase ```_leg_length_```, or both.
