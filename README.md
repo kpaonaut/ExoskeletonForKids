@@ -128,14 +128,3 @@ Note that when drawing, foot length is reduced here, mainly because the fact tha
 There is one major deficiency with this exo model: that the ankle angle is always 90 degrees. This differs from actual human model, therefore, double-stance only happens for an instant, as opposed to the actual human walking. 
 
 In fact, there is no easy workaround - we cannot ensure a period of double-stance unless we generate the trajectory by **math equation** instead of **spline**. Nevertheless, we can rely on the fact that the actual exo foot is not as long as 0.12 body height, and the patient's foot actually exceeds that length. Human feet are soft and flexible, and the patient is able to have an actual double stance with his forefeet(or shoes, to be precise). Also, from the animation we can see that the foot is not lifted far from the floor after the instant "double-stance", therefore this approximation can be feasible.
-
-### Acknowledgements
-The code in this repo is mainly written by me.
-
-Many thanks for these people who provided help throughout this project. Without them, our project will not be possible.
-
-* **Raghid Mardini**, Software and Controls Engineer Lead @ [SuitX](http://www.suitx.com)
-* **Michael McKinley**, Unknown Title @ [SuitX](http://www.suitx.com)
-* **Emily Stednitz** @ 102B group control squad
-* **Blake Hamid, Ennzhi Chew, Serhad Katzermanian** @ 102B group mechanical design squad
-* **Professor Kazerooni** @ UC Berkeley MechE, CEO @ [SuitX](http://www.suitx.com)
