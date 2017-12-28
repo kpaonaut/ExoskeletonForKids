@@ -40,11 +40,11 @@ Within the same folder, you can also run
 ```
 python toeClearancePlotter.py
 ```
-to plot the toe clearance, i.e. the height of the toe from the ground. This value gives an idea how hight the exo is lifting its feet when walking, hence the power consumption. Also this makes sure the person do not get tripped over.
+to plot the toe clearance, i.e. the height of the toe from the ground. This value gives an idea how high the exo is lifting its feet when walking, hence the power consumption. Also this makes sure the person does not get tripped over.
 ![toe](littleGuyPlotter/toe_clearance.png)
 
 #### __Issue:__
-**On some people's computers (or because of some different versions of matplotlib) the little guy does not appear when the command is executed. If this is the case, simply add a sentence ```time.sleep(0.001)``` in ```ExoPlotter.py```, line 127, directly after plotting, to allow the animation time to be updated.**
+**On some computers (or because of some different versions of matplotlib) the little guy does not appear when the command is executed. If this is the case, simply add a sentence ```time.sleep(0.001)``` in ```ExoPlotter.py```, line 127, directly after plotting, to allow the animation time to be updated.**
 
 If you have changed the C++ file, you will need to rebuild the project. Under ```/littleGuyPlotter```, use command
 
@@ -72,15 +72,15 @@ The major architecture for the folder and their functions explained (irrelevent 
 │   ├── parameters.py                   # define key parameters
 │   ├── trajectory_generator.py         # generate trajectory for curve-plotting
 │   └── trajectory_template_test.py     # plot trajectory curve
-├── STM32Project								# the project that can actually run with STM32
+├── STM32Project			# the project that can actually run with STM32
 │   ├── hip.cpp
 │   ├── hip.h
 │   ├── knee.cpp
 │   ├── knee.h
-│   ├── main.cpp								# runs on STM32, prints hip angle every milisecond
-│   ├── parameters.h						# cpp version for parameters.py
+│   ├── main.cpp			# runs on STM32, prints hip angle every milisecond
+│   ├── parameters.h			# cpp version for parameters.py
 │   ├── spline.h
-│   └── trajectory_generator.h			# generates trajectory for one hip
+│   └── trajectory_generator.h		# generates trajectory for one hip
 └── spline.h                            # generate spline
 ```
 
